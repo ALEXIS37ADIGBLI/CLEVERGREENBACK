@@ -80,7 +80,18 @@ module.exports.loginUser = async (req, res) => {
         firstName: presentUser.firstName,
     };
     console.info(`Utilisateur connecté: ${presentUser._id}`);
-    res.status(200).json({ success: true, userId: presentUser._id, message: "Login successful!" }); 
+    //Retourner les informations de l'utilisateur connecté
+    res.status(200).json({ 
+  success: true, 
+  user: {
+    userId: presentUser._id,
+    email: presentUser.email,
+    firstName: presentUser.firstName,
+    lastName: presentUser.lastName,
+  }, 
+  message: "Login successful!" 
+});
+ 
 } catch (error) {
         console.error("Erreur lors de la connexion de l'utilisateur:", error);
         res.status(500).json({ error: "Erreur lors de la connexion de l'utilisateur." });
